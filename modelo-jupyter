@@ -66,3 +66,24 @@ for i in range(epochs):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+    
+    ##llamada a red neuronal
+    #Accuracy - comparing the results from the test data
+
+predictions = []
+with torch.no_grad():
+    for i,data in enumerate(X_test):
+        y_pred = model(data)
+        #print("y_pred: {}  argmax: {}   item: {}".format(y_pred, y_pred.argmax(), y_pred.argmax().item()))
+        #predictions.append(y_pred.argmax().item())
+        predictions.append(y_pred.argmax())
+        
+score = accuracy_score(y_test , predictions)  # Simply calculates number of hits / length of y_test
+print(score)
+
+# save model
+# for more information on saving and loading PyTorch models: https://pytorch.org/tutorials/beginner/saving_loading_models.html
+# we are saving the model as a 'pt'.  Another file format we could use is a Pickle file.  Following article describes this process
+# https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/
+
+model.save(model_saved_name)
