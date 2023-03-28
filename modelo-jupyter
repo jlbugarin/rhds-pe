@@ -87,3 +87,22 @@ print(score)
 # https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/
 
 model.save(model_saved_name)
+
+##validar el modelo
+# load model and predict using class members
+ann_model = ANN_model()
+ann_model.load(model_saved_name)
+
+# Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age
+#predict_data        = [6, 110.0, 65.0, 15.0, 1.0, 45.7, 0.627, 50.0] # has diabetes
+predict_data       = [0, 88.0, 60.0, 35.0, 1.0, 45.7, 0.27, 20.0] # no diabetes
+predict_data_tensor = torch.tensor(predict_data)  #Convert input array to tensor
+prediction_value    = ann_model(predict_data_tensor)  # This is a tensor
+
+# Dict for textual display of prediction
+outcomes            = {0: 'No diabetes',1:'Diabetes Predicted'}
+
+# From the prediction tensor, get the index of the max value ( Either 0 or 1)
+prediction_index   = prediction_value.argmax().item()
+
+print(outcomes[prediction_index])
