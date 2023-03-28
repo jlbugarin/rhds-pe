@@ -15,3 +15,12 @@ model_saved_name   = 'PytorchDiabetesModelE71.pt'
 df                 = pd.read_csv(data_file_name)
 X                  = df.drop('Outcome' , axis = 1) #independent Feature
 y                  = df['Outcome']              
+
+##
+X_train,X_test,y_train,y_test = train_test_split(X,y , test_size =0.2,random_state=0)
+
+# Creating Tensors (multidimensional matrix) x-input data  y-output data
+X_train           = torch.FloatTensor(X_train.values)
+X_test            = torch.FloatTensor(X_test.values)
+y_train           = torch.LongTensor(y_train.values)
+y_test            = torch.LongTensor(y_test.values)
